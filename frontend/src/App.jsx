@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { LayoutDashboard, Package, Users, ShoppingCart, Menu, X } from 'lucide-react';
 import Dashboard from './components/Dashboard';
 import Products from './components/Products';
@@ -9,6 +9,14 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [toasts, setToasts] = useState([]);
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   // Trigger custom notification alerts
   const triggerToast = (message, type = 'success') => {
@@ -125,7 +133,7 @@ export default function App() {
             </p>
           </div>
           <div className="header-time">
-            Local Node: {new Date().toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}
+            Date: {currentTime.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })} | Time: {currentTime.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
           </div>
         </header>
 
