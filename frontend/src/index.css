@@ -555,6 +555,52 @@ body {
   margin-top: 0.1rem;
 }
 
+/* Loading Indicators */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+  color: var(--color-primary);
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3.5rem 1.5rem;
+  text-align: center;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.loading-note {
+  max-width: 480px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  background-color: rgba(37, 99, 235, 0.04);
+  border: 1px solid rgba(37, 99, 235, 0.15);
+  border-radius: 6px;
+  padding: 0.85rem 1.15rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  line-height: 1.45;
+}
+
+.loading-note-icon {
+  flex-shrink: 0;
+  color: var(--color-primary);
+  margin-top: 2px;
+}
+
 /* Animations */
 @keyframes slideIn {
   from {

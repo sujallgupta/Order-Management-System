@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Plus, Trash2, Search, X } from 'lucide-react';
 import api from '../api';
+import LoadingState from './LoadingState';
 
 export default function Customers({ triggerToast }) {
   const [customers, setCustomers] = useState([]);
@@ -116,10 +117,10 @@ export default function Customers({ triggerToast }) {
       </div>
 
       {/* Registry Table */}
-      <div className="card" style={{ padding: 0 }}>
-        {loading ? (
-          <div style={{ display: 'flex', justifyContent: 'center', padding: '4rem', color: 'var(--text-secondary)' }}>Loading registry...</div>
-        ) : (
+      {loading ? (
+        <LoadingState message="Fetching registered customer database..." />
+      ) : (
+        <div className="card" style={{ padding: 0 }}>
           <div className="table-container">
             <table className="custom-table">
               <thead>
@@ -161,8 +162,8 @@ export default function Customers({ triggerToast }) {
               </tbody>
             </table>
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* Add Customer Modal */}
       {isModalOpen && (

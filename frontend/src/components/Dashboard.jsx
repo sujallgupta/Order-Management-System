@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Package, Users, ShoppingCart, AlertTriangle, ArrowRight, DollarSign } from 'lucide-react';
 import api from '../api';
+import LoadingState from './LoadingState';
 
 export default function Dashboard({ setTab, triggerToast }) {
   const [summary, setSummary] = useState(null);
@@ -23,7 +24,7 @@ export default function Dashboard({ setTab, triggerToast }) {
   }, []);
 
   if (loading) {
-    return <div style={{ display: 'flex', justifyContent: 'center', padding: '4rem', color: 'var(--text-secondary)' }}>Loading overview metrics...</div>;
+    return <LoadingState message="Fetching system overview & operational metrics..." />;
   }
 
   if (!summary) {

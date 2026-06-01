@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Plus, Eye, Trash2, Search, X, Trash } from 'lucide-react';
 import api from '../api';
+import LoadingState from './LoadingState';
 
 export default function Orders({ triggerToast }) {
   const [orders, setOrders] = useState([]);
@@ -179,10 +180,10 @@ export default function Orders({ triggerToast }) {
       </div>
 
       {/* Orders Grid/Table */}
-      <div className="card" style={{ padding: 0 }}>
-        {loading ? (
-          <div style={{ display: 'flex', justifyContent: 'center', padding: '4rem', color: 'var(--text-secondary)' }}>Loading transactions...</div>
-        ) : (
+      {loading ? (
+        <LoadingState message="Fetching transaction history & orders registry..." />
+      ) : (
+        <div className="card" style={{ padding: 0 }}>
           <div className="table-container">
             <table className="custom-table">
               <thead>
@@ -232,8 +233,8 @@ export default function Orders({ triggerToast }) {
               </tbody>
             </table>
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* Create Order Modal */}
       {isCreateOpen && (

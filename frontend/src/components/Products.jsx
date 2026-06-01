@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Plus, Edit2, Trash2, Search, X } from 'lucide-react';
 import api from '../api';
+import LoadingState from './LoadingState';
 
 export default function Products({ triggerToast }) {
   const [products, setProducts] = useState([]);
@@ -138,10 +139,10 @@ export default function Products({ triggerToast }) {
       </div>
 
       {/* Catalog Table */}
-      <div className="card" style={{ padding: 0 }}>
-        {loading ? (
-          <div style={{ display: 'flex', justifyContent: 'center', padding: '4rem', color: 'var(--text-secondary)' }}>Loading catalog...</div>
-        ) : (
+      {loading ? (
+        <LoadingState message="Fetching products list from catalog..." />
+      ) : (
+        <div className="card" style={{ padding: 0 }}>
           <div className="table-container">
             <table className="custom-table">
               <thead>
@@ -197,8 +198,8 @@ export default function Products({ triggerToast }) {
               </tbody>
             </table>
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* Add/Edit Product Modal */}
       {isModalOpen && (
