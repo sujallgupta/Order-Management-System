@@ -73,7 +73,7 @@ export default function App() {
       <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="sidebar-logo">
           <Package size={28} style={{ color: 'var(--color-accent)' }} />
-          <span>ASSESMENT</span>
+          <span>ORDER MANAGENT</span>
         </div>
 
         <nav className="sidebar-nav">
@@ -111,7 +111,7 @@ export default function App() {
         </nav>
 
         <div style={{ marginTop: 'auto', padding: '0.5rem', borderTop: '1px solid var(--border-color)', fontSize: '0.75rem', color: 'var(--text-muted)', textAlign: 'center' }}>
-          Assesment OS v1.0.0
+          Order Managent OS v1.0.0
         </div>
       </aside>
 
