@@ -118,9 +118,6 @@ export default function App() {
           </div>
         </nav>
 
-        <div style={{ marginTop: 'auto', padding: '0.5rem', borderTop: '1px solid var(--border-color)', fontSize: '0.75rem', color: 'var(--text-muted)', textAlign: 'center' }}>
-          Order Managent OS v1.0.0
-        </div>
       </aside>
 
       {/* Main Workspace */}
