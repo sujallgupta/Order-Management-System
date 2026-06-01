@@ -25,7 +25,12 @@ elif db_url.startswith("postgresql://") or db_url.startswith("postgres://"):
         ssl_context.verify_mode = ssl.CERT_NONE
         connect_args["ssl_context"] = ssl_context
 
-engine = create_engine(db_url, connect_args=connect_args)
+engine = create_engine(
+    db_url, 
+    connect_args=connect_args,
+    pool_pre_ping=True,
+    pool_recycle=300
+)
 
 # Setup session maker
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

@@ -133,7 +133,7 @@ export default function Products({ triggerToast }) {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        <button className="btn btn-primary" onClick={openAddModal}>
+        <button className="btn btn-primary" onClick={openAddModal} disabled={loading}>
           <Plus size={16} /> Add Product
         </button>
       </div>

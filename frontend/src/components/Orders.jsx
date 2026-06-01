@@ -3,7 +3,7 @@ import { Plus, Eye, Trash2, Search, X, Trash } from 'lucide-react';
 import api from '../api';
 import LoadingState from './LoadingState';
 
-export default function Orders({ triggerToast }) {
+export default function Orders({ triggerToast, openCreateOnLoad, clearCreateOnLoad }) {
   const [orders, setOrders] = useState([]);
   const [customers, setCustomers] = useState([]);
   const [products, setProducts] = useState([]);
@@ -41,6 +41,13 @@ export default function Orders({ triggerToast }) {
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (!loading && openCreateOnLoad) {
+      openCreateModal();
+      clearCreateOnLoad();
+    }
+  }, [loading, openCreateOnLoad]);
 
   const openCreateModal = () => {
     if (customers.length === 0) {
@@ -174,7 +181,7 @@ export default function Orders({ triggerToast }) {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        <button className="btn btn-primary" onClick={openCreateModal}>
+        <button className="btn btn-primary" onClick={openCreateModal} disabled={loading}>
           <Plus size={16} /> Create Order
         </button>
       </div>
@@ -271,13 +278,14 @@ export default function Orders({ triggerToast }) {
                     Select Products
                   </span>
                   
-                  <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr auto', gap: '0.75rem', alignItems: 'end' }}>
-                    <div className="form-group">
+                  <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-end' }}>
+                    <div className="form-group" style={{ flex: '2', minWidth: '0' }}>
                       <label className="form-label">Product</label>
                       <select
                         className="form-select"
                         value={currentItem.product_id}
                         onChange={(e) => setCurrentItem(prev => ({ ...prev, product_id: e.target.value }))}
+                        style={{ width: '100%' }}
                       >
                         {products.map(p => (
                           <option key={p.id} value={p.id}>
@@ -287,7 +295,7 @@ export default function Orders({ triggerToast }) {
                       </select>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group" style={{ flex: '1', minWidth: '0' }}>
                       <label className="form-label">Quantity</label>
                       <input
                         type="number"
@@ -295,10 +303,11 @@ export default function Orders({ triggerToast }) {
                         className="form-input"
                         value={currentItem.quantity}
                         onChange={(e) => setCurrentItem(prev => ({ ...prev, quantity: e.target.value }))}
+                        style={{ width: '100%' }}
                       />
                     </div>
 
-                    <button type="button" className="btn btn-secondary" onClick={handleAddItem} style={{ height: '38px' }}>
+                    <button type="button" className="btn btn-secondary" onClick={handleAddItem} style={{ height: '38px', whiteSpace: 'nowrap' }}>
                       Add Item
                     </button>
                   </div>

@@ -29,18 +29,46 @@ export default function App() {
     }, 4000);
   };
 
+  const [openOrderModalOnLoad, setOpenOrderModalOnLoad] = useState(false);
+
   const renderContent = () => {
     switch (activeTab) {
       case 'dashboard':
-        return <Dashboard setTab={setActiveTab} triggerToast={triggerToast} />;
+        return (
+          <Dashboard 
+            setTab={(tab) => {
+              setActiveTab(tab);
+              if (tab === 'orders') {
+                setOpenOrderModalOnLoad(true);
+              }
+            }} 
+            triggerToast={triggerToast} 
+          />
+        );
       case 'products':
         return <Products triggerToast={triggerToast} />;
       case 'customers':
         return <Customers triggerToast={triggerToast} />;
       case 'orders':
-        return <Orders triggerToast={triggerToast} />;
+        return (
+          <Orders 
+            triggerToast={triggerToast} 
+            openCreateOnLoad={openOrderModalOnLoad}
+            clearCreateOnLoad={() => setOpenOrderModalOnLoad(false)}
+          />
+        );
       default:
-        return <Dashboard setTab={setActiveTab} triggerToast={triggerToast} />;
+        return (
+          <Dashboard 
+            setTab={(tab) => {
+              setActiveTab(tab);
+              if (tab === 'orders') {
+                setOpenOrderModalOnLoad(true);
+              }
+            }} 
+            triggerToast={triggerToast} 
+          />
+        );
     }
   };
 
