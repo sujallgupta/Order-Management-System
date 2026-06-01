@@ -11,7 +11,7 @@ EMAIL_REGEX = re.compile(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")
 class ProductBase(BaseModel):
     name: str = Field(..., min_length=1, max_length=100)
     sku: str = Field(..., min_length=2, max_length=50)
-    price: Decimal = Field(..., gt=0, decimal_places=2)
+    price: Decimal = Field(..., gt=0)
     quantity: int = Field(..., ge=0)
 
 class ProductCreate(ProductBase):
@@ -20,7 +20,7 @@ class ProductCreate(ProductBase):
 class ProductUpdate(BaseModel):
     name: Optional[str] = Field(None, min_length=1, max_length=100)
     sku: Optional[str] = Field(None, min_length=2, max_length=50)
-    price: Optional[Decimal] = Field(None, gt=0, decimal_places=2)
+    price: Optional[Decimal] = Field(None, gt=0)
     quantity: Optional[int] = Field(None, ge=0)
 
 class ProductOut(ProductBase):
