@@ -4,17 +4,28 @@ from sqlalchemy.orm import Session
 from typing import List
 from decimal import Decimal
 
-from . import models, schemas, crud, database
+from app import models, schemas, crud, database
+from app.config import settings
 
 # Create tables
 models.Base.metadata.create_all(bind=database.engine)
 
 app = FastAPI(title="Inventory & Order Management System API")
 
-# Configure CORS
+# Configure CORS to restrict origins securely
+origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+if settings.frontend_url:
+    # Strip any trailing slash to prevent match mismatches
+    frontend_origin = settings.frontend_url.rstrip("/")
+    if frontend_origin not in origins:
+        origins.append(frontend_origin)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # Allow all origins in development
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
