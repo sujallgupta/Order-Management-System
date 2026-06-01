@@ -94,6 +94,19 @@ def read_root():
     return {"message": "Welcome to the Inventory & Order Management System API"}
 
 
+@app.get("/health")
+def health_check(db: Session = Depends(database.get_db)):
+    try:
+        from sqlalchemy import text
+        db.execute(text("SELECT 1"))
+        return {"status": "healthy", "database": "connected"}
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=f"Database connection check failed: {str(e)}"
+        )
+
+
 # --- PRODUCTS API ---
 
 @app.post("/products", response_model=schemas.ProductOut, status_code=status.HTTP_201_CREATED)
